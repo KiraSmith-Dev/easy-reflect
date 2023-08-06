@@ -1,0 +1,28 @@
+name: Build
+
+on:
+  push:
+    branches: [ $default-branch ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Install Node.js 16.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+        cache: 'npm'
+      
+    - run: npm ci
+    - run: npm run build
+    - name: Commit build
+      run: |
+        git config --global user.name 'Github Actions'
+        git config --global user.email '<>'
+        git add --force dist/*
+        git commit -m "Automatic build"
+        git push
