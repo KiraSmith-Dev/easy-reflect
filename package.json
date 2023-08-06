@@ -2,9 +2,9 @@
   "name": "easy-reflect",
   "version": "1.0.0",
   "description": "",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
-  "files": [ "build" ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [ "dist" ],
   "scripts": {
     "build": "tsc",
     "start": "node .",
