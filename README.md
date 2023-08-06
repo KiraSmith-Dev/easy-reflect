@@ -1,5 +1,7 @@
 # Easy Reflect
 
+[![Build](https://github.com/int3nse-git/easy-reflect/actions/workflows/build.yml/badge.svg?event=push)](https://github.com/int3nse-git/easy-reflect/actions/workflows/build.yml)
+
 Easy Reflect is a simple yet powerful package that makes working with call stacks and call sites a breeze. It's designed to simplify the process of accessing and manipulating call stack information, making it super easy to trace function calls and inspect the call hierarchy.
 
 ## Installation
