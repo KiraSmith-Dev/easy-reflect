@@ -8,6 +8,7 @@ jobs:
   build:
     permissions:
       contents: write
+      actions: write
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -21,7 +22,14 @@ jobs:
       
     - run: npm ci
     - run: npm run build
+    
+    - name: Check for changes
+      run: |
+        git diff --quiet
+        echo "any_changes=$?" >> "$GITHUB_ENV"
+    
     - name: Commit build
+      if: ${{ env.any_changes == 1 }}
       run: |
         git config --global user.name 'Github Actions'
         git config --global user.email '<>'
