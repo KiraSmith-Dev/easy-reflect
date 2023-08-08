@@ -53,7 +53,7 @@ jobs:
           git config --global user.email '<>'
           git add package.json
           git commit -m "Chore: Update version to ${{ github.event.release.tag_name }}"
-          git push
+          git push origin HEAD:${{ github.event.release.target_commitish }}
       
       - name: Publish to GitHub Package Registry
         run: |
