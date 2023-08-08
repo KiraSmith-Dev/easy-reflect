@@ -6,8 +6,11 @@ Easy Reflect is a simple yet powerful package that makes working with call stack
 
 ## Installation
 
+For now we only provide a github package.
+Detailed instructions available [here](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry#installing-a-package).
+
 ```
-npm install https://github.com/int3nse-git/easy-reflect
+npm install @int3nse-git/easy-reflect
 ```
 
 ## Usage
