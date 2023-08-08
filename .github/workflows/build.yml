@@ -32,8 +32,8 @@ jobs:
     - name: Commit build
       if: ${{ env.any_changes == 1 }}
       run: |
-        git config --global user.name 'Github Actions'
-        git config --global user.email '<>'
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
         git add --force dist/*
         git commit -m "Chore: Automatic build"
         git push

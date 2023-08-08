@@ -49,8 +49,8 @@ jobs:
       - name: Commit version if changed
         if: ${{ env.any_changes == 1 }}
         run: |
-          git config --global user.name 'Github Actions'
-          git config --global user.email '<>'
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
           git add package.json
           git commit -m "Chore: Update version to ${{ github.event.release.tag_name }}"
           git push origin HEAD:${{ github.event.release.target_commitish }}
