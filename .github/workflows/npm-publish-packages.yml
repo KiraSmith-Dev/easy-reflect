@@ -5,7 +5,7 @@ name: Publish Package
 
 on:
   release:
-    types: [created]
+    types: [published]
 
 jobs:
   publish-gpr:
@@ -35,6 +35,24 @@ jobs:
           scope: ${{ github.repository_owner }}
           
       - run: npm ci
+      
+      - name: Modify package version
+        run: |
+          npm version ${{ github.event.release.tag_name }} --no-git-tag-version --allow-same-version
+        
+      - name: Check for changes
+        run: |
+          git diff --quiet
+          echo "any_changes=$?" >> "$GITHUB_ENV"
+        
+      - name: Commit version if changed
+        if: ${{ env.any_changes == 1 }}
+        run: |
+          git config --global user.name 'Github Actions'
+          git config --global user.email '<>'
+          git add package.json
+          git commit -m "Chore: Update version to ${{ github.event.release.tag_name }}"
+          git push
       
       - name: Publish to GitHub Package Registry
         run: |

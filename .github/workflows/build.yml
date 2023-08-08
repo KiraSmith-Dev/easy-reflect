@@ -34,5 +34,5 @@ jobs:
         git config --global user.name 'Github Actions'
         git config --global user.email '<>'
         git add --force dist/*
-        git commit -m "Automatic build"
+        git commit -m "Chore: Automatic build"
         git push
