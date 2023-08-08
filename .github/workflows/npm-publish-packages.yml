@@ -42,6 +42,7 @@ jobs:
         
       - name: Check for changes
         run: |
+          set +e
           git diff --quiet
           echo "any_changes=$?" >> "$GITHUB_ENV"
         
