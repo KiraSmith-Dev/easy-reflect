@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getCallerCallsite = exports.getCallsite = exports.getStack = void 0;
+// Using the same tactic as node internals here - we keep a reference to the
+// original Error constructor, so if it's messed with later we stay consistent
 const primordials = {
     Error
 };
@@ -16,7 +18,7 @@ function pushPop(object, key, value) {
 }
 function wrapStack(stack) {
     if (!stack)
-        throw new Error('easy-reflect: Stack trace failed');
+        throw new Error(errMsg('Stack trace failed'));
     const wrappedStack = {
         value: stack,
         unwind: (count = 1) => {
@@ -34,28 +36,36 @@ function validateOptions(options) {
         filter: (_d = options.filter) !== null && _d !== void 0 ? _d : (() => true)
     };
     if (typeof validOptions.trimDepth !== 'number')
-        throw new TypeError('easy-reflect: trimDepth must be a number');
+        throw new TypeError(errMsg('trimDepth must be a number'));
     if (validOptions.trimDepth < 0)
-        throw new RangeError('easy-reflect: trimDepth must be a positive number');
+        throw new RangeError(errMsg('trimDepth must be a positive number'));
     if (typeof validOptions.depth !== 'number')
-        throw new TypeError('easy-reflect: depth must be a number');
+        throw new TypeError(errMsg('depth must be a number'));
     if (validOptions.depth < 0)
-        throw new RangeError('easy-reflect: depth must be a positive number');
+        throw new RangeError(errMsg('depth must be a positive number'));
     if (typeof validOptions.showInternal !== 'boolean')
-        throw new TypeError('easy-reflect: showInternal must be a boolean');
+        throw new TypeError(errMsg('showInternal must be a boolean'));
     if (typeof validOptions.filter !== 'function')
-        throw new TypeError('easy-reflect: filter must be a function');
+        throw new TypeError(errMsg('filter must be a function'));
     return validOptions;
 }
 function _getStack(options) {
     const popStackTrace = pushPop(primordials.Error, 'prepareStackTrace', (_, stack) => stack);
     const popTraceLimit = pushPop(primordials.Error, 'stackTraceLimit', 100);
-    // V8 gives us a CallSite[], TS thinks we'd get a string | undefined
-    const stack = (new primordials.Error()).stack;
+    let stack = null;
+    try {
+        // V8 gives us a CallSite[], TS thinks we'd get a string | undefined
+        stack = (new primordials.Error()).stack;
+    }
+    catch (ex) {
+        throw new Error(errMsg('Unexpected error while getting stack trace: ' + ex));
+    }
+    finally { // Huh, an actually useful finally block
+        popStackTrace();
+        popTraceLimit();
+    }
     if (!Array.isArray(stack))
-        throw new Error('easy-reflect: Stack trace gave unexpected result');
-    popStackTrace();
-    popTraceLimit();
+        throw new Error(errMsg('Stack trace gave unexpected result'));
     const wrappedStack = wrapStack(stack);
     wrappedStack.unwind(1 + options.trimDepth);
     wrappedStack.value = wrappedStack.value.filter(callsite => {
