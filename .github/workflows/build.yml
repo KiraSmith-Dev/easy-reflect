@@ -8,32 +8,7 @@ jobs:
   build:
     permissions:
       contents: write
-      actions: write
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-    
-    - name: Install Node.js 16.x
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16.x
-        cache: 'npm'
-      
-    - run: npm ci
-    - run: npm run build
-    
-    - name: Check for changes
-      run: |
-        set +e
-        git diff --quiet
-        echo "any_changes=$?" >> "$GITHUB_ENV"
-    
-    - name: Commit build
-      if: ${{ env.any_changes == 1 }}
-      run: |
-        git config --global user.name "github-actions"
-        git config --global user.email "github-actions@github.com"
-        git add --force dist/*
-        git commit -m "Chore: Automatic build"
-        git push
+    uses: int3nse-git/int3nse-git/.github/workflows/build-test-commit.yml@main
+    with:
+      node-version: 16.x
+      output-glob: 'dist/*'
