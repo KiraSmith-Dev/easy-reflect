@@ -7,7 +7,6 @@ on:
         description: 'New version ex: 1.0.0'
         required: true
 
-
 jobs:
   bump-version:
     permissions:
@@ -15,3 +14,8 @@ jobs:
     uses: int3nse-git/int3nse-git/.github/workflows/npm-bump-version.yml@main
     with:
       new-version: ${{ github.event.inputs.new-version }}
+  tag-version:
+    needs: bump-version
+    permissions:
+      contents: write
+    uses: int3nse-git/int3nse-git/.github/workflows/npm-tag-version.yml@main
