@@ -14,7 +14,7 @@ jobs:
     permissions:
       contents: write
     uses: int3nse-git/int3nse-git/.github/workflows/npm-bump-version.yml@main
-  publish:
+  publish-github:
     needs: sync-version
     permissions:
       packages: write
@@ -26,7 +26,12 @@ jobs:
         uses: int3nse-git/int3nse-git/.github/actions/publish-github@main
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
+  publish-npm:
+    needs: sync-version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
       - name: Publish to npm
         uses: int3nse-git/int3nse-git/.github/actions/publish-npm@main
         with:
