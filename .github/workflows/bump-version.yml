@@ -1,0 +1,17 @@
+name: Bump Version
+
+on:
+  workflow_dispatch:
+    inputs:
+      new-version:
+        description: 'New version ex: 1.0.0'
+        required: true
+
+
+jobs:
+  bump-version:
+    permissions:
+      contents: write
+    uses: int3nse-git/int3nse-git/.github/workflows/npm-bump-version.yml@main
+    with:
+      new-version: ${{ github.event.inputs.new-version }}

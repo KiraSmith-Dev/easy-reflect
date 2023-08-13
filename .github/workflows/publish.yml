@@ -1,0 +1,33 @@
+name: Publish package
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  test:
+    permissions:
+      contents: read
+    uses: int3nse-git/int3nse-git/.github/workflows/checkout-build-test.yml@main
+  sync-version:
+    needs: test
+    permissions:
+      contents: write
+    uses: int3nse-git/int3nse-git/.github/workflows/npm-bump-version.yml@main
+  publish:
+    needs: sync-version
+    permissions:
+      packages: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Publish to github
+        uses: int3nse-git/int3nse-git/.github/actions/publish-github@main
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+      - name: Publish to npm
+        uses: int3nse-git/int3nse-git/.github/actions/publish-npm@main
+        with:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
