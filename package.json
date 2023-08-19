@@ -11,13 +11,20 @@
     "build": "tsc",
     "start": "node .",
     "bstart": "npm run build && npm run start",
-    "dev": "nodemon ./src/index.ts"
+    "dev": "nodemon ./src/index.ts",
+    "test": "ts-mocha ./test/**/*.test.ts",
+    "test-watch": "ts-mocha -w --watch-files \"+(test|src)/**/*\" test/**/*.test.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/chai": "^4.3.5",
+    "@types/mocha": "^10.0.1",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
     "nodemon": "^3.0.1",
+    "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
   }
