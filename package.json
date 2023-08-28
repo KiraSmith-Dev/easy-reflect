@@ -15,9 +15,13 @@
     "test": "ts-mocha ./test/**/*.test.ts",
     "test-watch": "ts-mocha -w --watch-files \"+(test|src)/**/*\" test/**/*.test.ts"
   },
-  "keywords": [],
+  "keywords": [
+    "callsite",
+    "reflection"
+  ],
   "author": "",
   "license": "ISC",
+  "repository": "int3nse-git/easy-reflect",
   "devDependencies": {
     "@types/chai": "^4.3.5",
     "@types/mocha": "^10.0.1",
