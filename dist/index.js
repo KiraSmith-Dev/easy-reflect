@@ -90,7 +90,7 @@ function getCallsite(_options = {}) {
     options.trimDepth += 1;
     const callsite = getStack(options)[options.depth];
     if (!callsite)
-        throw new Error(`easy-reflect: Callsite at deptch ${options.depth} does not exist`);
+        throw new Error(`easy-reflect: Callsite at depth ${options.depth} does not exist`);
     return callsite;
 }
 exports.getCallsite = getCallsite;
