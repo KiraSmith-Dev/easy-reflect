@@ -11,6 +11,6 @@ jobs:
   bump-version:
     permissions:
       contents: write
-    uses: int3nse-git/int3nse-git/.github/workflows/npm-bump-version.yml@main
+    uses: KiraSmith-Dev/KiraSmith-Dev/.github/workflows/npm-bump-version.yml@main
     with:
       new-version: ${{ github.event.inputs.new-version }}
