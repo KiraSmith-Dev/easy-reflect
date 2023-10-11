@@ -21,7 +21,7 @@
   ],
   "author": "",
   "license": "ISC",
-  "repository": "int3nse-git/easy-reflect",
+  "repository": "KiraSmith-Dev/easy-reflect",
   "devDependencies": {
     "@types/chai": "^4.3.5",
     "@types/mocha": "^10.0.1",
