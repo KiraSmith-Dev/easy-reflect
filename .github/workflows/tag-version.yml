@@ -8,6 +8,6 @@ jobs:
   tag-version:
     permissions:
       contents: write
-    uses: int3nse-git/int3nse-git/.github/workflows/npm-tag-version.yml@main
+    uses: KiraSmith-Dev/KiraSmith-Dev/.github/workflows/npm-tag-version.yml@main
     with:
       node-version: 16.x
