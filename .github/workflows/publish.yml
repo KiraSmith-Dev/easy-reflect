@@ -8,7 +8,7 @@ jobs:
   test:
     permissions:
       contents: read
-    uses: int3nse-git/int3nse-git/.github/workflows/checkout-build-test.yml@main
+    uses: KiraSmith-Dev/KiraSmith-Dev/.github/workflows/checkout-build-test.yml@main
   publish-github:
     needs: test
     permissions:
@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Publish to github
-        uses: int3nse-git/int3nse-git/.github/actions/publish-github@main
+        uses: KiraSmith-Dev/KiraSmith-Dev/.github/actions/publish-github@main
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   publish-npm:
@@ -28,6 +28,6 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Publish to npm
-        uses: int3nse-git/int3nse-git/.github/actions/publish-npm@main
+        uses: KiraSmith-Dev/KiraSmith-Dev/.github/actions/publish-npm@main
         with:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
